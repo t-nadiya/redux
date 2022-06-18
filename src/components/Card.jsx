@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Typography } from "@material-ui/core";
@@ -9,18 +8,16 @@ const useStyles = makeStyles({
   user: {
     margin: "5px auto",
     padding: 10,
-    backgroundColor: "#A5BECC",
+    background: "none",
   },
-  
 });
 
 function Card({ letter }) {
-  
   const classes = useStyles();
   const users = useSelector((state) => state.users.users);
 
   const [filteredUsers, setFilteredUsers] = useState([]);
-  
+
   useEffect(() => {
     const usersByLetter = users
       .filter((item) => item.name.first.startsWith(letter))
@@ -35,15 +32,14 @@ function Card({ letter }) {
       });
 
     setFilteredUsers(usersByLetter);
-    
-  }, [users,letter]);
+  }, [users, letter]);
 
   return (
     <>
       {filteredUsers.length === 0 && <Typography>No User</Typography>}
       {filteredUsers.map((user) => (
-        <Paper key={user.login.uuid} className={classes.user}>
-           <User user={user} />
+        <Paper key={user.login.uuid} className={classes.user} elevation={0}>
+          <User user={user} />
         </Paper>
       ))}
     </>

@@ -1,10 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
+import { Paper, Typography } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  card: {
+    margin: "10px",
+  },
+  caption: {
+    color: "#7C3E66",
+  },
+  text: {
+    color: "#C6DCE4",
+  },
+});
 
 function Month({ month }) {
-  
-  const [employeesByMonth, setEmployeesByMonth] = useState([]);
-  const selected = useSelector(state=> state.users.selected)
+  const classes = useStyles();
+  const selected = useSelector((state) => state.users.selected);
+  const [usersByMonth, setUsersByMonth] = useState([]);
 
   useEffect(() => {
     const sortedByMonth = selected
@@ -22,25 +36,27 @@ function Month({ month }) {
         }
         return 0;
       });
-    setEmployeesByMonth(sortedByMonth);
-  }, [month, selected, employeesByMonth]);
-  // console.log(selected);
+    setUsersByMonth(sortedByMonth);
+  }, [month, selected]);
 
   return (
-    <>
-      <h4>{month}</h4>
-      {employeesByMonth.length === 0 && <p>No User</p>}
-      {employeesByMonth.map((item) => (
-        <p key={item.login.uuid}>
+    <Paper className={classes.card} elevation={0}>
+      <Typography variant="h5" className={classes.caption}>
+        {month}
+      </Typography>
+      {usersByMonth.length === 0 && (
+        <Typography className={classes.text}>No User</Typography>
+      )}
+      {usersByMonth.map((item) => (
+        <Typography key={item.login.uuid}>
           {item.name.last +
             " " +
             item.name.first +
             " " +
             item.dob.date.substring(0, 10)}
-        </p>
+        </Typography>
       ))}
-
-    </>
+    </Paper>
   );
 }
 

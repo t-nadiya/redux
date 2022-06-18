@@ -5,7 +5,7 @@ import { getUsers } from "./store/usersState";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Paper, Typography } from "@material-ui/core";
 import Card from "./components/Card";
-import EmployeeBD from "./components/EmployeeBD";
+import BirthdayList from "./components/BirthdayList";
 
 const useStyles = makeStyles({
   flex: {
@@ -54,8 +54,8 @@ function App() {
         </div>
       </div>
       <div className={classes.right}>
-        <Typography variant="h3">Users birthday</Typography>
-        <EmployeeBD />
+        <Typography variant="h2">Users birthday</Typography>
+        <BirthdayList />
       </div>
     </Container>
   );

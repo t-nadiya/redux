@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import { io } from "socket.io-client";
 
 export const getUsers = createAsyncThunk("users/getUsers", async () => {
   // const response = await fetch("https://randomuser.me/api/?results=10");
@@ -20,7 +19,6 @@ export const usersSlice = createSlice({
   reducers: {
     handleUser: (state, action) => {
       const data = action.payload;
-      console.log(data);
       data.status
         ? state.selected.push(data.user)
         : state.selected = state.selected.filter(
@@ -34,6 +32,6 @@ export const usersSlice = createSlice({
     },
   },
 });
-export const { setData, handleUser } = usersSlice.actions;
+export const { handleUser } = usersSlice.actions;
 
 export default usersSlice.reducer;
