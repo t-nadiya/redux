@@ -1,116 +1,64 @@
-import './App.css';
-import { letters } from './data';
-import { useState, useEffect } from 'react';
+import { useEffect } from "react";
+import { letters } from "./data";
 import { useDispatch } from "react-redux";
-import { getUsers } from './store/usersState';
-import Card from './Card';
-import EmployeeBD from './EmployeeBD';
+import { getUsers } from "./store/usersState";
+import { makeStyles } from "@material-ui/core/styles";
+import { Container, Paper, Typography } from "@material-ui/core";
+import Card from "./components/Card";
+import EmployeeBD from "./components/EmployeeBD";
+
+const useStyles = makeStyles({
+  flex: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  left: {
+    width: "70%",
+  },
+  right: {
+    width: "30%",
+  },
+  letterList: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  card: {
+    width: 250,
+    height: 500,
+    overflowY: "scroll",
+    backgroundColor: " #A5BECC",
+    margin: "10px",
+    padding: "10px",
+  },
+});
 
 function App() {
-
-  // const [employees, setEmployees] = useState([]);
-  // const [selectedEmployees, setSelectedEmployees] = useState([]);
-
+  const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // fetch("https://randomuser.me/api/?results=80")
-    // .then((response) => response.json())
-    // .then((data) => setEmployees(data.results));
-
     dispatch(getUsers());
-
   }, [dispatch]);
 
-  // const handleEmployee = (item, status) => {
-  //   const updatedEmployees = status
-  //     ? [...selectedEmployees, item]
-  //     : selectedEmployees.filter((selectedItem) => selectedItem.login.uuid !== item.login.uuid);
-
-  //   setSelectedEmployees(updatedEmployees);
-  // };
-
-
   return (
-    <div className="wrapper">
-      <div className="content-left">
-        <h1>Users</h1>
-        <div className="letter-list">
+    <Container maxWidth="xl" className={classes.flex}>
+      <div className={classes.left}>
+        <Typography variant="h2">Users</Typography>
+        <div className={classes.letterList}>
           {letters.map((item) => (
-            <div className="letter" key={item}>
-            <h2>{item}</h2>
-            <Card
-                letter={item}
-                // employees={employees}
-                // handleEmployee={handleEmployee}
-              />
-            </div>
+            <Paper key={item} className={classes.card}>
+              <Typography variant="h4">{item}</Typography>
+              <Card letter={item} />
+            </Paper>
           ))}
         </div>
       </div>
-      <div className="content-right">
-        <h1>Users birthday</h1>
-        {/* <EmployeeBD selectedEmployees={selectedEmployees}/> */}
+      <div className={classes.right}>
+        <Typography variant="h3">Users birthday</Typography>
+        <EmployeeBD />
       </div>
-    </div>
+    </Container>
   );
 }
 
 export default App;
-
-
-  
-
-
-
-// import { Container, CssBaseline, AppBar, Typography } from "@material-ui/core";
-
-// import { makeStyles } from "@material-ui/core/styles";
-// import Card from "./components/card/Card";
-// import List from "./components/list/List";
-
-// const useStyles = makeStyles({
-//   flex: {
-//     display: "flex",
-//     justifyContent: "space-between",
-//   },
-//   wrapper: {
-//     maxWidth: 1000,
-//     margin: "10px auto",
-//   },
-//   center: {
-//     alignSelf: "center",
-//   },
-//   header: {
-//     textAlign: "center",
-//   },
-// });
-
-// function App() {
-//   const classes = useStyles();
-//   
-//   const date = new Date().toLocaleDateString("en-GB");
-
-//   useEffect(() => {
-//     dispatch(getTickers());
-//   }, [dispatch]);
-
-//   return (
-//     <div className={classes.wrapper}>
-//       <CssBaseline />
-//       <Typography variant="h3">NotFakeFinance</Typography>
-//       <AppBar position="static" elevation={0}>
-//         <Container className={`${classes.flex} ${classes.container}`}>
-//           <List />
-//           <Typography className={classes.center}>{date}</Typography>
-//         </Container>
-//       </AppBar>
-//       <Typography variant="h5" className={classes.header}>
-//         Watchlist
-//       </Typography>
-//       <Card />
-//     </div>
-//   );
-// }
-
-// export default App;

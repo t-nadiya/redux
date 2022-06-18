@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-function Month({ month, selectedEmployees }) {
+function Month({ month }) {
   
   const [employeesByMonth, setEmployeesByMonth] = useState([]);
+  const selected = useSelector(state=> state.users.selected)
 
   useEffect(() => {
-    const sortedByMonth = selectedEmployees
+    const sortedByMonth = selected
       .filter(
         (item) =>
           new Date(item.dob.date).toLocaleString("en-us", { month: "long" }) ===
@@ -21,7 +23,8 @@ function Month({ month, selectedEmployees }) {
         return 0;
       });
     setEmployeesByMonth(sortedByMonth);
-  }, [month, selectedEmployees, employeesByMonth]);
+  }, [month, selected, employeesByMonth]);
+  // console.log(selected);
 
   return (
     <>

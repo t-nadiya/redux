@@ -1,10 +1,12 @@
-import { year } from "./data";
+import { year } from "../data";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Month from "./Month";
 
-function EmployeeBD({ selectedEmployees }) {
+function EmployeeBD() {
 
   const [reOrderedYear, setReOrderedYear] = useState([]);
+  const selected = useSelector(state=> state.users.selected)
 
   useEffect(() => {
     const currentDate = new Date();
@@ -13,15 +15,16 @@ function EmployeeBD({ selectedEmployees }) {
 
     let orderedYear = [].concat(afterCurrentMonth, beforeCurrentMonth);
     setReOrderedYear(orderedYear);
-  }, [selectedEmployees]);
+  }, [selected]);
+  console.log(selected);
 
   return (
     <>
-      {selectedEmployees.length === 0 && <div>Users List is empty</div>}
+      {selected.length === 0 && <div>Users List is empty</div>}
       {reOrderedYear.map((month) => (
         <div key={month}>
-          {selectedEmployees.length > 0 && (
-            <Month month={month} selectedEmployees={selectedEmployees} />
+          {selected.length > 0 && (
+            <Month month={month}/>
           )}
           </div>
       ))}
