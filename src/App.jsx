@@ -2,35 +2,10 @@ import { useEffect } from "react";
 import { letters } from "./data";
 import { useDispatch } from "react-redux";
 import { getUsers } from "./store/usersState";
-import { makeStyles } from "@material-ui/core/styles";
 import { Container, Paper, Typography } from "@material-ui/core";
+import { useStyles } from "./styles";
 import Card from "./components/Card";
 import BirthdayList from "./components/BirthdayList";
-
-const useStyles = makeStyles({
-  flex: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  left: {
-    width: "70%",
-  },
-  right: {
-    width: "30%",
-  },
-  letterList: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  card: {
-    width: 250,
-    height: 500,
-    overflowY: "scroll",
-    backgroundColor: " #A5BECC",
-    margin: "10px",
-    padding: "10px",
-  },
-});
 
 function App() {
   const classes = useStyles();
@@ -38,6 +13,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getUsers());
+    console.log("hhhh");
   }, [dispatch]);
 
   return (
